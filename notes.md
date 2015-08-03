@@ -25,3 +25,14 @@ functionality
   only count
 
 
+
+// relevant data 
+
+API call: 
+https://www.govtrack.us/api/v2/role?current=true&limit=600
+
+returned JSON has a property 'objects' containing an array of objects, with properties:
+> party: 'Party',
+> person.twitterid: 'handlewithoutAT'
+
+'Party' string can be 'Democrat' or 'Republican'
