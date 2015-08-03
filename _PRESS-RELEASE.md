@@ -18,27 +18,29 @@ Once the project moves into development, the press release can be used as a touc
  
 ## Heading ##
   > Name the product in a way the reader (i.e. your target customers) will understand.
+  Compare Politicians on Twitter
 
 ## Sub-Heading ##
-  > Describe who the market for the product is and what benefit they get. One sentence only underneath the title.
+  Find out if Republicans or Democrates care less about what you care for.
+  
 
 ## Summary ##
-  > Give a summary of the product and the benefit. Assume the reader will not read anything else so make this paragraph good.
+  Use keyword searches on Twitter as indicators which topics are of importance for Republicans and Democrats or which they seem not to care about. 
 
 ## Problem ##
-  > Describe the problem your product solves.
+  Considering media reports on the most snappy or outragious comments of our beloved Representatives, it is not immediately obvious on how to get a birds eye view on which topics politicans generally tend to care more or less. Twitter is a place politicians send out a large amount of soundbites representing official positions and their own opinions, but it is not trivial to quickly assess which topic is more talked about by Repoublicans or Democrats in general. It is difficult to tell how much a party and their representatives are actually talking about a subject on Twitter.
 
 ## Solution ##
-  > Describe how your product elegantly solves the problem.
+  The app gives an easy way to visualize to the enduser how many Democrats vs Republicans voice their opinion or position around a chosen keyword. (without judgement)
 
 ## Quote from You ##
-  > A quote from a spokesperson in your company.
+  If they are not talking about what you care for, why would you vote for them? 
 
 ## How to Get Started ##
-  > Describe how easy it is to get started.
+  Simply open the app and click on often used keywords or use the search bar to find out if republicans or democrats talk more about your topic of interest. 
 
 ## Customer Quote ##
-  > Provide a quote from a hypothetical customer that describes how they experienced the benefit.
+  "Finally I know whom not to vote for. They just don't care about hot air baloons!" -- disillusioned citizen, probably
 
 ## Closing and Call to Action ##
-  > Wrap it up and give pointers where the reader should go next.
+  You want to know whom not to vote for. Find out today, use the search bar to see if republicans or democrats care less about your topic of interest. 
