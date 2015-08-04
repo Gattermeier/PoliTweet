@@ -2,7 +2,7 @@ var rebuildPoliticians = require('../controller/getusers');
 var rebuildTweets = require('../controller/gettweets');
 var politicians = undefined;
 
-module.exports = function(app) {
+module.exports = function(app, db) {
   app.get('/', function(req, res, next) {
     res.redirect('/client/index.html');
   })
@@ -16,17 +16,16 @@ module.exports = function(app) {
   })
   app.get('/api/politicians', function(req, res, next) {
     if (politicians !== undefined) {
-      res.write(data);
+      res.write(politicians);
       res.end;
     }
   })
 
   app.get('/api/rebuild/politicians', function(req, res, next) {
-    rebuildPoliticians(function(err, data) {
+    rebuildPoliticians(db, function(err, data) {
       if (err) throw err;
       politicians = data;
-      console.log('got politicians');
-
+      console.log('got politicians?', data);
     });
     res.write('ok');
     res.end;
