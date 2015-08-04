@@ -18,7 +18,7 @@
   </head>
   <body>
     <h1 class="text-center">Hello World</h1>
-
+    <div class="data"></div>
     <!-- jQuery -->
     <script src="http:////code.jquery.com/jquery.js"></script>
     <!-- Bootstrap JavaScript -->
@@ -39,7 +39,7 @@
    
 
     var pol = new Politicians({model: PoliticianModel});
-    var view = new PoliticiansView({collection: pol});
+    var view = new PoliticiansView({collection: pol, el: $('.data'),});
     // console.log(pol);
     // var reps = pol.where({party: "Republican"});
     // var dems = pol.where({party: "Democrat"});
