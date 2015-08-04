@@ -12,7 +12,7 @@ mongoose.connect(config, function(err) {
   if (err) throw err;
 
   app.use("/client", express.static(path.join(__dirname, 'client')));
-  // app.use("/assets", express.static(path.join(__dirname, 'bower_components')));
+  app.use("/assets", express.static(path.join(__dirname, 'bower_components')));
   router(app);
 
   app.listen(port, function(err) {

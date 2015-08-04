@@ -1,0 +1,26 @@
+{
+  "name": "PoliTweet",
+  "version": "0.0.1",
+  "homepage": "https://github.com/Gattermeier/2015-06-mvp",
+  "authors": [
+    "Matthias Gattermeier <matthias.gattermeier@gmail.com>"
+  ],
+  "main": "index.html",
+  "moduleType": [
+    "node"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "underscore": "~1.8.3",
+    "backbone": "~1.2.1",
+    "jquery": "~2.1.4",
+    "bootstrap": "~3.3.5"
+  }
+}

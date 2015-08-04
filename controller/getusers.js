@@ -2,9 +2,18 @@
 var request = require('request');
 var mongoose = require('mongoose');
 var Politician = require('../db/models').Politician;
+var Test = mongoose.Schema({
+  name: String
+});
 
 var getPoliticians = function(body, callback) {
+
+  // Politician.collection.drop();
   var politicians = body.objects;
+
+
+
+  // THIS WILL NOT WORK - collection bypasses mongoose and uses native mongodb driver :/
   var politicianCollection = [];
   Object.keys(politicians).forEach(function(key) {
     if (politicians[key].person.twitterid !== null) {
@@ -15,7 +24,15 @@ var getPoliticians = function(body, callback) {
       });
     }
   });
-  Politician.collection.insert(politicianCollection, callback);
+
+
+  Politician.collection.insert(politicianCollection, null, function(err, data) {
+    if (err) {
+      console.log(err);
+    }
+    console.log('Added some elements, ', data.length);
+    callback();
+  });
 }
 
 module.exports = function(callback) {
