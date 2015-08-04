@@ -1,6 +1,6 @@
 // this snipped of code should read all politicians from the API and same relevant data to the db
 var request = require('request');
-var govtrack = require('../config/govtrack');
+var govtrack = require('../config/govtrack')();
 
 var getPoliticians = function(db, body, callback) {
 
@@ -21,7 +21,7 @@ var getPoliticians = function(db, body, callback) {
   collection.drop();
   collection.insert(politicianCollection, function(err, result) {
     if (err) console.log(err);
-    callback(err, result);
+    callback(err, result.ops);
     // collection.count(function(err, count) {
     //   console.log('COUNT: ', count);
     // })

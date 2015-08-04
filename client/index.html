@@ -27,6 +27,8 @@
     <script src="/assets/backbone/backbone-min.js"></script>
     <script src="/client/models/PoliticianModel.js"></script>
     <script src="/client/collections/Politicians.js"></script>
+    <script src="/client/views/PoliticiansView.js"></script>
+    <script src="/client/views/PoliticianView.js"></script>
 
 
     <!-- Politician model data comes from API request -->
@@ -34,47 +36,26 @@
     <!-- Assume for now: -->
 
     <script>
-    var PoliticiansData = [{
-    name: 'asdf',
-    party: 'Democrat',
-    twitterId: 'soerme'
-    },{
-    name: 'aswdqdf',
-    party: 'Democrat',
-    twitterId: 'somewre'
-    },{
-    name: 'aswerdf',
-    party: 'Republican',
-    twitterId: 'swerrrome'
-    },{
-    name: 'asrtdf',
-    party: 'Democrat',
-    twitterId: 'sowerfme'
-    },{
-    name: 'qweasdf',
-    party: 'Republican',
-    twitterId: 'sofwerfme'
-    }
-    ];
+   
 
-    var pol = new Politicians(PoliticiansData);
-    console.log(pol);
-    var reps = pol.where({party: "Republican"});
-    var dems = pol.where({party: "Democrat"});
-    console.log(reps);
-    console.log(dems);
-    // or via filter:
-    var repPol = pol.filter(function(person) {
-      return person.get("party") === "Republican";
-    });
-    console.log(repPol);
+    var pol = new Politicians({model: PoliticianModel});
+    var view = new PoliticiansView({collection: pol});
+    // console.log(pol);
+    // var reps = pol.where({party: "Republican"});
+    // var dems = pol.where({party: "Democrat"});
+    // console.log(reps);
+    // console.log(dems);
+    // // or via filter:
+    // var repPol = pol.filter(function(person) {
+    //   return person.get("party") === "Republican";
+    // });
+    // console.log(repPol);
 
-    // or create new collection from 'where' object
-    var demPol = new Politicians(dems);
-    console.log(demPol);
+    // // or create new collection from 'where' object
+    // var demPol = new Politicians(dems);
+    // console.log(demPol);
 
-    
-    // can I do: 
+
     
     </script>
 

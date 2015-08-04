@@ -6,6 +6,7 @@ module.exports = function(app, db) {
   app.get('/', function(req, res, next) {
     res.redirect('/client/index.html');
   })
+
   app.get('/test', function(req, res, next) {
     rebuildTweets('gattermeier', function(err, data) {
       if (err) throw err;
@@ -14,10 +15,13 @@ module.exports = function(app, db) {
       res.end;
     });
   })
+
   app.get('/api/politicians', function(req, res, next) {
     if (politicians !== undefined) {
-      res.write(politicians);
-      res.end;
+      console.log(politicians);
+      res.status(200)
+      res.jsonp(politicians);
+      // res.end;
     }
   })
 
