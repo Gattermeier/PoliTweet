@@ -12,6 +12,7 @@
     "mongoose": "^4.1.0",
     "request": "^2.60.0",
     "twit": "^2.1.0",
-    "twitter": "^1.2.5"
+    "twitter": "^1.2.5",
+    "underscore": "^1.8.3"
   }
 }

@@ -18,18 +18,8 @@ module.exports = function(user, callback) {
     count: 50
   }
 
-  // T.get('followers/ids', {
-  //   screen_name: 'gattermeier'
-  // }, function(err, data, response) {
-  //   console.log(data)
-  // })
-
   T.get(url, params, function(err, data, resp) {
-    tweets = data;
     callback(err, data);
   });
 
-  // client.get(url, params, function(err, data, resp) {
-  //   console.log(data);
-  // })
 }

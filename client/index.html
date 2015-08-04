@@ -8,7 +8,24 @@
 
     <!-- Bootstrap CSS -->
     <link href="http://netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
-
+    <style>
+    #allarea div {
+      font: 10px sans-serif;
+      text-align: right;
+      padding: 5px;
+      margin: 5px 0;
+      color: white;    
+    }
+    #allarea div:first-child {
+      background-color: steelblue;
+    }
+    #allarea div:last-child {
+      background-color: red;
+    }
+    .data, .repstweets, .alltweets, .demstweets {
+      display: none;
+    }
+    </style>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -17,18 +34,48 @@
     <![endif]-->
   </head>
   <body>
-    <h1 class="text-center">Hello World</h1>
+
+
+<div class="container">
+  
+
+    <h1 class="">Do they talk about it?</h1>
+    <div class="row">
+      <div class="form-inline col-xs-12">
+        <input type="text" style="min-width:250px" class="form-control" id="searchfield" placeholder="stupid stuff politicians talk about">
+        <button type="button" id="submit" class="btn btn-primary">Submit</button>
+      </div>
+    </div>
+    <div class="row">
+      <div id="allarea" class="col-xs-12"></div>
+    </div>
+  </div>
+
+    <div id="demsarea"></div>
+    <div id="repsarea"></div>
     <div class="data"></div>
+    <div class="alltweets"></div>
+    <div class="demstweets"></div>
+    <div class="repstweets"></div>
     <!-- jQuery -->
     <script src="http:////code.jquery.com/jquery.js"></script>
     <!-- Bootstrap JavaScript -->
     <script src="http://netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <script src="/assets/underscore/underscore-min.js"></script>
     <script src="/assets/backbone/backbone-min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
+
+
     <script src="/client/models/PoliticianModel.js"></script>
     <script src="/client/collections/Politicians.js"></script>
     <script src="/client/views/PoliticiansView.js"></script>
     <script src="/client/views/PoliticianView.js"></script>
+
+
+    <script src="/client/models/TweetModel.js"></script>
+    <script src="/client/collections/TweetCollection.js"></script>
+    <script src="/client/views/TweetsView.js"></script>
+    <script src="/client/views/TweetView.js"></script>
 
 
     <!-- Politician model data comes from API request -->
@@ -38,25 +85,80 @@
     <script>
    
 
-    var pol = new Politicians({model: PoliticianModel});
-    var view = new PoliticiansView({collection: pol, el: $('.data'),});
-    // console.log(pol);
-    // var reps = pol.where({party: "Republican"});
-    // var dems = pol.where({party: "Democrat"});
-    // console.log(reps);
-    // console.log(dems);
+    // var pol = new Politicians({model: PoliticianModel});
+    // var view = new PoliticiansView({collection: pol, el: $('.data'),});
+
+    var tweets = new TweetCollection({model: TweetModel});
+    var tweetView = new TweetsView({collection: tweets, el: $('.alltweets')});
+
+    var reps = tweets.where({party: "Republican"});
+    var resCollection = new TweetCollection({model: reps});
+    var repsView = new TweetsView({collection: resCollection, el: $('.repstweets')}); 
+    var dems = tweets.where({party: "Democrat"});
+    var demsCollection = new TweetCollection({model: dems});
+    var demsView = new TweetsView({collection: demsCollection, el: $('.demstweets')}); 
+
     // // or via filter:
     // var repPol = pol.filter(function(person) {
     //   return person.get("party") === "Republican";
     // });
     // console.log(repPol);
+      
 
-    // // or create new collection from 'where' object
-    // var demPol = new Politicians(dems);
-    // console.log(demPol);
+    var area = d3.select("#allarea");
 
 
-    
+
+    $("#submit").on('click', function(){
+      var search = $("#searchfield").val();
+
+      var getNumbers = function(affiliation) {
+        return tweets.reduce(function(memo, item){
+          var text = item.attributes.text;
+          var party = item.attributes.party;
+          if (text.indexOf(search) > -1 && party === affiliation) {
+            return memo + 1;
+          } else {
+            return memo;
+          }
+        }, 0);
+      }
+
+
+      data = [getNumbers("Democrat"), getNumbers("Republican")];
+      
+      var x = d3.scale.linear()
+        .domain([0, d3.max(data)])
+        .range([0, 420]);
+      
+      // join old data if nexessary
+      canvas = area.selectAll("div")
+        .data(data);
+
+      // update old elements with new data where necessary
+      canvas
+        .style("width", function(d) { return x(d) + "px"; })
+        .text(function(d){
+          console.log(d);
+          return d;
+        });
+
+      // add new elements if needed
+      canvas.enter()
+        .append("div")
+        .style("width", function(d) { return x(d) + "px"; })
+        .text(function(d){
+          console.log(d);
+          return d;
+        });
+
+      // remove old elements if not needed anymore
+      canvas.exit()
+        .remove();
+
+    })
+
+
     </script>
 
   </body>

@@ -1,6 +1,6 @@
-var Politicians = Backbone.Collection.extend({
-  model: PoliticianModel,
-  url: '../api/politicians/db',
+var TweetCollection = Backbone.Collection.extend({
+  model: TweetModel,
+  url: '../api/tweets/fake',
   initialize: function() {
     console.log('init');
   },
@@ -8,4 +8,4 @@ var Politicians = Backbone.Collection.extend({
     console.log('PARSE', data);
     return data;
   }
-});
+})
