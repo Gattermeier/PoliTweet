@@ -10,10 +10,10 @@
     <link href="http://netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
     <style>
     #allarea div {
-      font: 10px sans-serif;
+      font: 14px sans-serif;
       text-align: right;
-      padding: 5px;
-      margin: 5px 0;
+      padding: 10px;
+      margin: 10px 0;
       color: white;    
     }
     #allarea div:first-child {
@@ -43,7 +43,7 @@
     <div class="row">
       <div class="form-inline col-xs-12">
         <input type="text" style="min-width:250px" class="form-control" id="searchfield" placeholder="stupid stuff politicians talk about">
-        <button type="button" id="submit" class="btn btn-primary">Submit</button>
+        <button type="button" id="submit" class="btn btn-primary">Compare</button>
       </div>
     </div>
     <div class="row">
@@ -110,13 +110,15 @@
 
 
     $("#submit").on('click', function(){
-      var search = $("#searchfield").val();
+      var search = $("#searchfield").val().toLowerCase();
 
       var getNumbers = function(affiliation) {
         return tweets.reduce(function(memo, item){
-          var text = item.attributes.text;
+          var text = (item.attributes.text).toLowerCase();
+          searcg = search.replace(/#/g, '');
+          // console.log(text);
           var party = item.attributes.party;
-          if (text.indexOf(search) > -1 && party === affiliation) {
+          if (party === affiliation && (text.indexOf(search) > -1 || text.indexOf('#'+search) > -1 )) {
             return memo + 1;
           } else {
             return memo;

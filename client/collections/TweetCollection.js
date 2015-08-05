@@ -1,6 +1,6 @@
 var TweetCollection = Backbone.Collection.extend({
   model: TweetModel,
-  url: '../api/tweets/fake',
+  url: '../api/tweets/db',
   initialize: function() {
     console.log('init');
   },

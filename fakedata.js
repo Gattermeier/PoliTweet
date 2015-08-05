@@ -1,7 +1,7 @@
 var text = ["LGBT", "Immigration", "border", "Obama"];
 var party = ["Republican", "Democrat"];
 var data = [];
-for (var i = 0; i < 50; i++) {
+for (var i = 0; i < 1500; i++) {
   var item = {
     _id: (Math.random() * 60),
     text: text[Math.floor(Math.random() * text.length)],
@@ -9,5 +9,5 @@ for (var i = 0; i < 50; i++) {
   }
   data.push(item);
 }
-console.log('Data:', data);
+// console.log('Data:', data);
 exports.data = data;

@@ -10,24 +10,6 @@ module.exports = function(app, db) {
     res.redirect('/client/index.html');
   })
 
-  app.get('/api/tweets/fake', function(req, res, next) {
-    res.status(200);
-    res.jsonp(fakedata);
-  })
-
-  app.get('/test', function(req, res, next) {
-    rebuildTweets('gattermeier', function(err, data) {
-      if (err) throw err;
-      // save tweet data of user
-      saveTweets(db, data, function(err, result) {
-        if (err) throw err;
-      });
-      // console.log(data);
-      res.write('ok');
-      res.end;
-    });
-  })
-
   // retrieve politicians from database
   app.get('/api/politicians/db', function(req, res, next) {
     var collection = db.collection('politicians');
@@ -55,19 +37,30 @@ module.exports = function(app, db) {
 
     collectionPol.find().toArray(function(err, politicians) {
       if (err) throw err;
-      var TwitterAPILimit = 10;
+      var TwitterAPILimit = 20;
       _.each(politicians, function(item) {
-        if (item.hasOwnProperty('twitterid') && (TwitterAPILimit > 1) && (item.indexedOnce !== true)) {
+        if (item.hasOwnProperty('twitterid') && (TwitterAPILimit > 1 && (item.indexedOnce !== true))) {
           TwitterAPILimit--;
           rebuildTweets(item.twitterid, function(err, data) {
             if (err) throw err;
-            console.log(data);
-            data['party'] = item.party;
-            console.log(data);
-            console.log('####################################################');
-            collectionTweets.insert(data, function(err, result) {
-              console.log(result['party']);
+            // console.log('DATA: ', data);
+            var tweets = [];
+            for (var i = 0; i < data.length; i++) {
+              // console.log(data[i].text);
+              var tweet = {
+                user: data[i].user.name,
+                text: data[i].text,
+                party: item.party
+              }
+              tweets.push(tweet);
+            }
+            // data['party'] = item.party;
+            // console.log(data);
+            // console.log('####################################################');
+            console.log(tweets);
+            collectionTweets.insert(tweets, function(err, result) {
               if (err) throw err;
+              console.log('inserted');
               collectionPol.findOne(item, function(err, pol) {
                 pol['indexedOnce'] = true;
                 collectionPol.save(pol, {
@@ -94,8 +87,32 @@ module.exports = function(app, db) {
     });
   });
 
+  app.get('/api/tweets/drop', function(req, res, next) {
+    var collection = db.collection('tweets');
+    collection.drop();
+  })
+
   app.get('/api/twitter/callback', function(req, res, next) {
     console.log('Twitter callback');
   });
+
+
+  app.get('/api/tweets/fake', function(req, res, next) {
+    res.status(200);
+    res.jsonp(fakedata);
+  })
+
+  app.get('/test', function(req, res, next) {
+    rebuildTweets('gattermeier', function(err, data) {
+      if (err) throw err;
+      // save tweet data of user
+      saveTweets(db, data, function(err, result) {
+        if (err) throw err;
+      });
+      // console.log(data);
+      res.write('ok');
+      res.end;
+    });
+  })
 
 }
